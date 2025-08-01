@@ -21,13 +21,16 @@ function AppContent({ children }: { children: React.ReactNode }) {
           onClick={toggleSidebar}
         ></div>
       )}
+
       <div className="flex">
         <Sidebar />
+
+      
         <div className={`
-            flex-1
-            pl-0 md:pl-64
+            flex-1 
+            pl-0 md:pl-64 
             transition-all duration-300 ease-in-out
-            ${isCartOpen ? 'pr-0 md:pr-[28rem]' : 'pr-0'}
+            ${isCartOpen ? 'pr-0 xl:pr-[28rem]' : 'pr-0'}
           `}
         >
           <Header />
@@ -36,6 +39,7 @@ function AppContent({ children }: { children: React.ReactNode }) {
           </main>
         </div>
       </div>
+
       <CartDrawer />
     </div>
   );

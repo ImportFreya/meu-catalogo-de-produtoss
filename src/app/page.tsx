@@ -26,6 +26,7 @@ export default function HomePage() {
     fetchCategories();
   }, []);
 // Busca os produtos com base na categoria selecionada ou todos os produtos se nenhuma categoria for selecionada
+
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true);
