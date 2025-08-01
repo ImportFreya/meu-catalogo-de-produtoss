@@ -1,6 +1,7 @@
-// app/sobre-nos/page.tsx
 
-const SobreNosPage = () => {
+import React from 'react';
+
+function SobreNosPage() {
   return (
     <div className="bg-white p-8 rounded-lg shadow-md">
       <h1 className="text-3xl font-bold text-gray-800 mb-4">
@@ -33,6 +34,6 @@ const SobreNosPage = () => {
       </div>
     </div>
   );
-};
+}
 
 export default SobreNosPage;

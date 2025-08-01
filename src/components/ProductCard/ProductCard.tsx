@@ -1,4 +1,3 @@
-// No topo do arquivo, para podermos usar o hook useContext
 "use client";
 
 import Image from "next/image";

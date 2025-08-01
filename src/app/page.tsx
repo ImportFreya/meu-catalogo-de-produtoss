@@ -1,22 +1,18 @@
-// app/page.tsx
 "use client";
 
 import { useState, useEffect } from 'react';
 import { ProductCard } from '../components/ProductCard/ProductCard';
+import { CategoryFilters } from '../components/CategoryFilters/CategoryFilters'; // aqui eu quis criar um componente para os filtros de categoria, pra deixar mais limpo e orgarnizado por tipo se for roupa, eletronicos, etc
 import { Product } from '@/context/CartContext';
-import { CategoryFilters } from '../components/CategoryFilters/CategoryFilters'; // Eu quis criar esse novo componente CategoryFilters para filtrar os produtos por categoria e ficar mais bonitinho visualmente.
 
 export default function HomePage() {
   const [allProducts, setAllProducts] = useState<Product[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
-  
   const [categories, setCategories] = useState<string[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-
-  // aqui puxamos as categorias da API quando o componente é montado
+  
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -29,21 +25,18 @@ export default function HomePage() {
     };
     fetchCategories();
   }, []);
-
-  // então Edson aqui é onde buscamos os produtos, agora com a lógica de categoria
+// Busca os produtos com base na categoria selecionada ou todos os produtos se nenhuma categoria for selecionada
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true);
-      // URL dinâmica: se uma categoria for selecionada, busca por ela. Senão, busca todos.
+      setError(null);
       const url = selectedCategory
         ? `https://fakestoreapi.com/products/category/${selectedCategory}`
         : 'https://fakestoreapi.com/products';
 
       try {
         const response = await fetch(url);
-        if (!response.ok) {
-          throw new Error('Falha ao buscar os produtos.');
-        }
+        if (!response.ok) throw new Error('Falha ao buscar os produtos.');
         const data: Product[] = await response.json();
         setAllProducts(data);
       } catch (err) {
@@ -52,22 +45,16 @@ export default function HomePage() {
         setLoading(false);
       }
     };
-
     fetchProducts();
-  }, [selectedCategory]); // Dependência: re-executa quando `selectedCategory` muda
+  }, [selectedCategory]);
 
-  // Filtro de busca por nome continua funcionando sobre a lista de produtos atual
+  // Filtra os produtos com base no termo de pesquisa
   const filteredProducts = allProducts.filter(product =>
     product.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  if (loading)
-  if (error) 
-
-
   return (
     <div>
-      
       <div className="mb-8">
         <input
           type="text"
@@ -78,19 +65,20 @@ export default function HomePage() {
         />
       </div>
 
-    
       <div className="mb-8">
-        <CategoryFilters
+        <CategoryFilters 
           categories={categories}
           selectedCategory={selectedCategory}
           onSelectCategory={setSelectedCategory}
         />
       </div>
-
-    
+      
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        
         {loading ? (
-          <p className="col-span-full text-center">Carregando...</p>
+          <p className="col-span-full text-center mt-8">Carregando produtos...</p>
+        ) : error ? (
+          <p className="col-span-full text-center mt-8 text-red-500">{error}</p>
         ) : filteredProducts.length > 0 ? (
           filteredProducts.map(product => (
             <ProductCard key={product.id} product={product} />
