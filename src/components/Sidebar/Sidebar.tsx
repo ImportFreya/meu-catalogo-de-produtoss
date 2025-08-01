@@ -39,7 +39,7 @@ export const Sidebar = () => {
             </span>
           )}
         </button>
-        <Link href="/sobre-nos" className="flex items-center p-2 rounded-md hover:bg-gray-700 transition-colors">
+        <Link href="/sobre" className="flex items-center p-2 rounded-md hover:bg-gray-700 transition-colors">
           <Info className="mr-3" />
           Sobre nós
         </Link>
