@@ -1,6 +1,7 @@
 "use client"
 
 import { Inter } from "next/font/google";
+import "./globals.css";
 import { CartProvider, useCart } from "@/context/CartContext";
 import { Sidebar } from "../components/Sidebar/Sidebar";
 import { CartDrawer } from "../components/CartDrawer/CartDrawer";
