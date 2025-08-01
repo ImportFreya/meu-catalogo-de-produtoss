@@ -2,6 +2,7 @@
 
 import { ShoppingCart, Home, Info } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
+import Link from 'next/link';
 
 
 export const Sidebar = () => {
@@ -23,15 +24,15 @@ export const Sidebar = () => {
       `}
     >
       <div className="text-2xl font-bold mb-10">
-        <a href="/">Connect Store</a>
+        <Link href="/">Connect Store</Link>
       </div>
 
       <nav className="flex flex-col space-y-4">
        
-        <a href="/" className="flex items-center p-2 rounded-md hover:bg-gray-700 transition-colors">
+        <Link href="/" className="flex items-center p-2 rounded-md hover:bg-gray-700 transition-colors">
           <Home className="mr-3" />
           Início
-        </a>
+        </Link>
         <button
           onClick={openCart}
           className="flex items-center p-2 rounded-md hover:bg-gray-700 transition-colors relative"
@@ -44,10 +45,10 @@ export const Sidebar = () => {
             </span>
           )}
         </button>
-        <a href="/sobre" className="flex items-center p-2 rounded-md hover:bg-gray-700 transition-colors">
+        <Link href="/sobre" className="flex items-center p-2 rounded-md hover:bg-gray-700 transition-colors">
           <Info className="mr-3" />
           Sobre nós
-        </a>
+        </Link>
       </nav>
     </aside>
   );

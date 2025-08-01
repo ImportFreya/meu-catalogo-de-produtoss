@@ -2,6 +2,7 @@
 
 import { useCart } from "@/context/CartContext";
 import { Menu } from 'lucide-react'; 
+import Link from "next/link";
 
 export const Header = () => {
   // aqui eu estou usando o contexto do carrinho para pegar a função de toggleSidebar
@@ -13,7 +14,7 @@ export const Header = () => {
     // Ou seja, ele SÓ APARECE em telas pequenas (mobile).
     <header className="bg-gray-800 text-white p-4 flex items-center justify-between md:hidden sticky top-0 z-30">
       <h1 className="text-xl font-bold">
-        <a href="/">Connect Store</a>
+        <Link href="/">Connect Store</Link>
       </h1>
       <button onClick={toggleSidebar} className="p-2 rounded-md hover:bg-gray-700">
         <Menu size={24} />

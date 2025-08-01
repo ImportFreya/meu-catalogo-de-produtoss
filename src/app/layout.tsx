@@ -10,11 +10,11 @@ import { Header } from "../components/Header/Header";
 const inter = Inter({ subsets: ["latin"] });
 
 function AppContent({ children }: { children: React.ReactNode }) {
-  const { isCartOpen, closeCart, isSidebarOpen, toggleSidebar } = useCart();
+  const { isCartOpen, isSidebarOpen, toggleSidebar } = useCart();
 
   return (
     <div className="relative min-h-screen bg-gray-100">
-      {/* Overlay para a sidebar do mobile */}
+      
       {isSidebarOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
@@ -25,7 +25,7 @@ function AppContent({ children }: { children: React.ReactNode }) {
       <div className="flex">
         <Sidebar />
 
-        {/* A CORREÇÃO ESTÁ AQUI: Combinando todas as classes de layout */}
+        
         <div className={`
             flex-1 
             pl-0 md:pl-64 
