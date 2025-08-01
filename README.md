@@ -7,7 +7,7 @@
 ## 🚀 Status e Demonstração
 
 * **Status:** Finalizado ✅
-* **Demonstração Ao Vivo:** `[COLOQUE O LINK DO SEU DEPLOY DA VERCEL AQUI]`
+* **Demonstração Ao Vivo:** `[meu-catalogo-de-produtoss.vercel.app]`
 
 ---
 
