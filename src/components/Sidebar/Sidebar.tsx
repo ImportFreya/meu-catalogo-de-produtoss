@@ -1,23 +1,19 @@
+// components/Sidebar/Sidebar.tsx
 "use client";
 
 import { ShoppingCart, Home, Info } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import Link from 'next/link';
 
-
 export const Sidebar = () => {
-  
-  const { cartItems, openCart, isSidebarOpen } = useCart(); 
-  
+  const { cartItems, openCart, isSidebarOpen } = useCart();
   const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
 
   return (
-     
-    // Aqui eu tive a ideia de criar um Menu para deixar bem organizado e responsivo, pensei na ideia em por os menus carrinho, sobre nos e o inicio, acredito que fica bem organizado e limpo
-    <aside 
+    <aside
       className={`
         bg-gray-800 text-white w-64 h-screen p-4 flex flex-col
-        fixed top-0 left-0 z-50 
+        fixed top-0 left-0 z-50
         transition-transform duration-300 ease-in-out
         ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}
         md:translate-x-0
@@ -26,9 +22,7 @@ export const Sidebar = () => {
       <div className="text-2xl font-bold mb-10">
         <Link href="/">Connect Store</Link>
       </div>
-
       <nav className="flex flex-col space-y-4">
-       
         <Link href="/" className="flex items-center p-2 rounded-md hover:bg-gray-700 transition-colors">
           <Home className="mr-3" />
           Início
@@ -45,11 +39,16 @@ export const Sidebar = () => {
             </span>
           )}
         </button>
-        <Link href="/sobre" className="flex items-center p-2 rounded-md hover:bg-gray-700 transition-colors">
+        <Link href="/sobre-nos" className="flex items-center p-2 rounded-md hover:bg-gray-700 transition-colors">
           <Info className="mr-3" />
           Sobre nós
         </Link>
       </nav>
+      <div className="mt-auto">
+        <a href="#" className="flex items-center p-2 rounded-md hover:bg-gray-700 transition-colors">
+          Sair
+        </a>
+      </div>
     </aside>
   );
 };

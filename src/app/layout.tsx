@@ -1,11 +1,12 @@
+
 "use client"
 
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { CartProvider, useCart } from "@/context/CartContext";
-import { Sidebar } from "../components/Sidebar/Sidebar";
-import { CartDrawer } from "../components/CartDrawer/CartDrawer";
-import { Header } from "../components/Header/Header";
+import { Sidebar } from "@/components/Sidebar/Sidebar";
+import { CartDrawer } from "@/components/CartDrawer/CartDrawer";
+import { Header } from "@/components/Header/Header";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,21 +15,17 @@ function AppContent({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="relative min-h-screen bg-gray-100">
-      
       {isSidebarOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
           onClick={toggleSidebar}
         ></div>
       )}
-
       <div className="flex">
         <Sidebar />
-
-        
         <div className={`
-            flex-1 
-            pl-0 md:pl-64 
+            flex-1
+            pl-0 md:pl-64
             transition-all duration-300 ease-in-out
             ${isCartOpen ? 'pr-0 md:pr-[28rem]' : 'pr-0'}
           `}
@@ -39,7 +36,6 @@ function AppContent({ children }: { children: React.ReactNode }) {
           </main>
         </div>
       </div>
-      
       <CartDrawer />
     </div>
   );
@@ -47,9 +43,9 @@ function AppContent({ children }: { children: React.ReactNode }) {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="pt-br">
       <body className={inter.className}>
