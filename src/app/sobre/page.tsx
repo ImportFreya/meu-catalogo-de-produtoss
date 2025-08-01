@@ -3,7 +3,7 @@ import React from 'react';
 
 function SobreNosPage() {
   return (
-    <div className="bg-white p-8 rounded-lg shadow-md">
+    <div className="p-8 rounded-lg shadow-md">
       <h1 className="text-3xl font-bold text-gray-800 mb-4">
         Sobre a Connect Store
       </h1>
