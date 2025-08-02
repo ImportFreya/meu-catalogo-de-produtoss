@@ -5,17 +5,17 @@ import { useParams } from 'next/navigation';
 import Image from 'next/image';
 import { useCart, Product } from '@/context/CartContext';
 import toast from 'react-hot-toast';
-import { 
-  titleTranslations, 
-  descriptionTranslations, 
-  categoryTranslations 
+import {
+  titleTranslations,
+  descriptionTranslations,
+  categoryTranslations
 } from '@/lib/translations';
 import { ProductDetailSkeleton } from '@/components/ProductCardSkeleton/ProductDetailSkeleton';
 
 // eu fiz esse componente para exibir os detalhes de um produto específico, onde o usuário pode ver as informações do produto e adicionar ao carrinho
 
 export default function ProductDetailPage() {
-  const { id } = useParams(); 
+  const { id } = useParams();
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
   const { addToCart } = useCart();
@@ -41,7 +41,7 @@ export default function ProductDetailPage() {
   }, [id]);
 
   if (loading) {
-   return <ProductDetailSkeleton />;;
+    return <ProductDetailSkeleton />;;
   }
 
   if (!product) {
@@ -66,18 +66,22 @@ export default function ProductDetailPage() {
         </div>
 
         <div className="flex flex-col justify-center">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">{translatedTitle}</h1>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">{translatedTitle}</h1>
           <p className="text-gray-500 mb-4 capitalize">{translatedCategory}</p>
           <p className="text-gray-700 leading-relaxed mb-6">{translatedDescription}</p>
-          
-          <div className="flex items-center justify-between">
+
+          <div className="
+            flex flex-col gap-4 mt-6
+            md:flex-row md:items-center md:justify-between md:mt-0">
             <span className="text-4xl font-extrabold text-gray-900">
               {product.price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
             </span>
             <button
               onClick={() => addToCart(product)}
-              className="bg-blue-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-blue-700 transition-colors cursor-pointer"
-            >
+              className="
+              bg-blue-600 text-white font-bold py-3 px-6 rounded-lg
+              hover:bg-blue-700 transition-colors cursor-pointer
+               w-full md:w-auto">
               Adicionar ao Carrinho
             </button>
           </div>

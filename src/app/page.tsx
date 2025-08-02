@@ -6,14 +6,16 @@ import { CategoryFilters } from '../components/CategoryFilters/CategoryFilters';
 import { Product } from '@/context/CartContext';
 
 import { ProductCardSkeleton } from '../components/ProductCardSkeleton/ProductCardSkeleton';
+import {titleTranslations} from '@/lib/translations'; 
 
 export default function HomePage() {
   const [allProducts, setAllProducts] = useState<Product[]>([]);
-  const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [categories, setCategories] = useState<string[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [inputValue, setInputValue] = useState(''); 
+  const [searchTerm, setSearchTerm] = useState(''); 
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -51,10 +53,34 @@ export default function HomePage() {
     fetchProducts();
   }, [selectedCategory]);
 
+ // Aqui eu adicionei um efeito para atualizar o termo de pesquisa após 500ms de inatividade do usuário
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setSearchTerm(inputValue);
+    }, 500); 
+
+    return () => clearTimeout(timer); 
+  }, [inputValue]); 
+
+  const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      setSearchTerm(inputValue);
+    }
+  };
+
   // Filtra os produtos com base no termo de pesquisa
-  const filteredProducts = allProducts.filter(product =>
-    product.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredProducts = allProducts.filter(product => {
+    // Pega o título original em inglês
+    const originalTitle = product.title;
+    // Pega o título traduzido em português
+    const translatedTitle = titleTranslations[product.id] || product.title;
+    // Converte o termo de busca para minúsculas para comparação
+    const term = searchTerm.toLowerCase();
+    // Retorna true se o termo de busca for encontrado EM QUALQUER UM dos títulos
+    return originalTitle.toLowerCase().includes(term) || 
+           translatedTitle.toLowerCase().includes(term);
+  });
+  
 
   return (
     <div>
@@ -63,8 +89,9 @@ export default function HomePage() {
           type="text"
           placeholder="Buscar produto pelo nome..."
           className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+          onKeyDown={handleSearchKeyDown}
         />
       </div>
 
