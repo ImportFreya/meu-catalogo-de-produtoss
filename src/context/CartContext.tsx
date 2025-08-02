@@ -2,6 +2,7 @@
 "use client";
 
 import { createContext, useState, ReactNode, useContext } from 'react';
+import toast from 'react-hot-toast'; 
 
 // Eu usei o context para gerenciar o estado do carrinho de compras, onde vai me ajudar a ter o controle e usar sebre esse component
 export interface Product {
@@ -55,6 +56,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       
       return [...prevItems, { ...product, quantity: 1 }];
     });
+    toast.success(`${product.title} adicionado ao carrinho!`);
   };
 
   // e aqui é para remover o produto do carrinho 

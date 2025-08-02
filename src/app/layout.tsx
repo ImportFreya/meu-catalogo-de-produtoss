@@ -7,6 +7,7 @@ import { CartProvider, useCart } from "@/context/CartContext";
 import { Sidebar } from "@/components/Sidebar/Sidebar";
 import { CartDrawer } from "@/components/CartDrawer/CartDrawer";
 import { Header } from "@/components/Header/Header";
+import { Toaster } from 'react-hot-toast'; 
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -41,6 +42,7 @@ function AppContent({ children }: { children: React.ReactNode }) {
       </div>
 
       <CartDrawer />
+      <Toaster position="bottom-left" />
     </div>
   );
 }
