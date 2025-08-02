@@ -21,16 +21,31 @@ O objetivo principal foi demonstrar a capacidade de consumir uma API REST extern
 
 ## ✨ Funcionalidades Principais
 
+O projeto foi desenvolvido com um conjunto robusto de funcionalidades para simular uma experiência de e-commerce moderna e completa.
+
+#### **Navegação e Descoberta de Produtos**
 * **Listagem de Produtos:** Os produtos são carregados dinamicamente a partir da [Fake Store API](https://fakestoreapi.com/).
-* **Busca em Tempo Real:** Filtro de produtos por nome, que atualiza a lista conforme o usuário digita.
-* **Filtro por Categorias:** Carregamento dinâmico das categorias da API e filtragem de produtos ao selecionar uma categoria.
+* **Busca Inteligente:**
+    * Filtro de produtos por nome com "debounce" para otimizar a performance, evitando buscas a cada tecla pressionada.
+    * A busca funciona tanto em português quanto em inglês.
+    * Suporte para busca via clique no botão ou pressionando a tecla "Enter".
+* **Filtro por Categorias:** Carregamento dinâmico das categorias da API. Em telas maiores, os filtros são botões; em telas mobile, transformam-se em uma lista suspensa (dropdown) para melhor usabilidade.
+* **Tradução de Conteúdo:** Títulos, descrições e categorias são traduzidos para o português para uma experiência de usuário localizada.
+* **Página de Detalhes do Produto:** Rota dinâmica (`/produtos/[id]`) que exibe informações completas de cada item.
+
+#### **Gerenciamento de Carrinho**
 * **Carrinho de Compras Interativo:**
-    * Adicionar e remover itens.
-    * O contador de itens é atualizado em tempo real.
-    * O carrinho desliza para a tela sem recarregar a página.
-    * O estado do carrinho é gerenciado globalmente com a Context API do React.
-* **Layout Totalmente Responsivo:** A interface se adapta para uma experiência otimizada tanto em desktops quanto em dispositivos móveis, utilizando o padrão de "menu hambúrguer" para a navegação mobile.
-* **Páginas Estáticas:** Como a página "Sobre Nós", utilizando o sistema de roteamento do Next.js.
+    * Adicionar, remover e limpar todos os itens.
+    * O contador de itens é atualizado em tempo real na navegação.
+    * O estado do carrinho é gerenciado globalmente com a **Context API** do React.
+* **Persistência de Dados:** O carrinho é salvo no `localStorage` do navegador, garantindo que os itens não sejam perdidos ao recarregar a página ou fechar o navegador.
+
+#### **Experiência do Usuário (UX/UI)**
+* **Layout Totalmente Responsivo:** A interface se adapta perfeitamente a celulares, tablets e desktops.
+    * Utiliza o padrão de "menu hambúrguer" para a navegação mobile, que se fecha automaticamente ao navegar.
+    * O layout se ajusta dinamicamente quando o carrinho é aberto para evitar sobreposição de conteúdo.
+* **Notificações (Toasts):** Feedback instantâneo para o usuário ao adicionar ou remover itens do carrinho, utilizando a biblioteca `react-hot-toast`.
+* **Loading Skeletons:** Exibição de "esqueletos" de interface enquanto os dados são carregados, melhorando a percepção de velocidade da aplicação.
 
 ---
 
