@@ -44,11 +44,6 @@ export const Sidebar = () => {
           Sobre nós
         </Link>
       </nav>
-      <div className="mt-auto">
-        <a href="#" className="flex items-center p-2 rounded-md hover:bg-gray-700 transition-colors">
-          Sair
-        </a>
-      </div>
     </aside>
   );
 };
