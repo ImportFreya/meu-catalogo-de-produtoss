@@ -6,7 +6,7 @@ import { useCart } from '@/context/CartContext';
 import Link from 'next/link';
 
 export const Sidebar = () => {
-  const { cartItems, openCart, isSidebarOpen } = useCart();
+  const { cartItems, openCart, isSidebarOpen, toggleSidebar } = useCart();
   const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
 
   return (
@@ -20,10 +20,10 @@ export const Sidebar = () => {
       `}
     >
       <div className="text-2xl font-bold mb-10">
-        <Link href="/">Connect Store</Link>
+      <Link href="/" onClick={isSidebarOpen ? toggleSidebar : undefined}>Connect Store</Link>
       </div>
       <nav className="flex flex-col space-y-4">
-        <Link href="/" className="flex items-center p-2 rounded-md hover:bg-gray-700 transition-colors">
+          <Link href="/" onClick={isSidebarOpen ? toggleSidebar : undefined} className="flex items-center p-2 rounded-md hover:bg-gray-700 transition-colors">
           <Home className="mr-3" />
           Início
         </Link>
@@ -39,7 +39,8 @@ export const Sidebar = () => {
             </span>
           )}
         </button>
-        <Link href="/sobre" className="flex items-center p-2 rounded-md hover:bg-gray-700 transition-colors">
+          
+          <Link href="/sobre" onClick={isSidebarOpen ? toggleSidebar : undefined} className="flex items-center p-2 rounded-md hover:bg-gray-700 transition-colors">
           <Info className="mr-3" />
           Sobre nós
         </Link>
