@@ -1,12 +1,11 @@
 "use client";
-
 import { useState, useEffect } from 'react';
 import { ProductCard } from '../components/ProductCard/ProductCard';
 import { CategoryFilters } from '../components/CategoryFilters/CategoryFilters'; // aqui eu quis criar um componente para os filtros de categoria, pra deixar mais limpo e orgarnizado por tipo se for roupa, eletronicos, etc
 import { Product } from '@/context/CartContext';
-
+import { Search } from 'lucide-react';
 import { ProductCardSkeleton } from '../components/ProductCardSkeleton/ProductCardSkeleton';
-import {titleTranslations} from '@/lib/translations'; 
+import { titleTranslations } from '@/lib/translations';
 
 export default function HomePage() {
   const [allProducts, setAllProducts] = useState<Product[]>([]);
@@ -14,8 +13,8 @@ export default function HomePage() {
   const [error, setError] = useState<string | null>(null);
   const [categories, setCategories] = useState<string[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [inputValue, setInputValue] = useState(''); 
-  const [searchTerm, setSearchTerm] = useState(''); 
+  const [inputValue, setInputValue] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -53,14 +52,14 @@ export default function HomePage() {
     fetchProducts();
   }, [selectedCategory]);
 
- // Aqui eu adicionei um efeito para atualizar o termo de pesquisa após 500ms de inatividade do usuário
+  // Aqui eu adicionei um efeito para atualizar o termo de pesquisa após 500ms de inatividade do usuário
   useEffect(() => {
     const timer = setTimeout(() => {
       setSearchTerm(inputValue);
-    }, 500); 
+    }, 500);
 
-    return () => clearTimeout(timer); 
-  }, [inputValue]); 
+    return () => clearTimeout(timer);
+  }, [inputValue]);
 
   const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
@@ -77,22 +76,39 @@ export default function HomePage() {
     // Converte o termo de busca para minúsculas para comparação
     const term = searchTerm.toLowerCase();
     // Retorna true se o termo de busca for encontrado EM QUALQUER UM dos títulos
-    return originalTitle.toLowerCase().includes(term) || 
-           translatedTitle.toLowerCase().includes(term);
+    return originalTitle.toLowerCase().includes(term) ||
+      translatedTitle.toLowerCase().includes(term);
   });
-  
+
+  const handleSearchClick = () => {
+    setSearchTerm(inputValue);
+  };
+
 
   return (
     <div>
       <div className="mb-8">
+      <div className="flex items-center gap-2">
         <input
           type="text"
           placeholder="Buscar produto pelo nome..."
-          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="flex-grow p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           onKeyDown={handleSearchKeyDown}
         />
+        <button
+          onClick={handleSearchClick}
+          className="bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition-colors cursor-pointer flex-shrink-0 px-4 py-3"
+        >
+          <span className="md:hidden">
+            <Search size={20} />
+          </span>
+          <span className="hidden md:inline">
+            Buscar
+          </span>
+        </button>
+        </div>
       </div>
 
       <div className="mb-8">
