@@ -1,7 +1,7 @@
 
 "use client";
 
-import { createContext, useState, ReactNode, useContext } from 'react';
+import { createContext, useState, ReactNode, useContext, useEffect } from 'react';
 import toast from 'react-hot-toast'; 
 
 // Eu usei o context para gerenciar o estado do carrinho de compras, onde vai me ajudar a ter o controle e usar sebre esse component
@@ -41,6 +41,25 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const savedCart = localStorage.getItem('cartItems');
+      if (savedCart) {
+        setCartItems(JSON.parse(savedCart));
+      }
+    }
+  }, []);
+
+  useEffect(() =>{
+    if (cartItems.length > 0) {
+      localStorage.setItem('cartItems', JSON.stringify(cartItems));
+
+    }
+    else {
+      localStorage.removeItem('cartItems');
+    }
+  } , [cartItems]);
+  
   // essa logica aqui é para adicionar um produto ao carrinho
   const addToCart = (product: Product) => {
     setCartItems(prevItems => {
@@ -63,10 +82,12 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const removeFromCart = (productId: number) => {
   
     setCartItems(prevItems => prevItems.filter(item => item.id !== productId));
+    toast.error("Item removido do carrinho."); 
   };
 
   const clearCart = () => {
     setCartItems([]);
+    toast.error("Carrinho esvaziado."); 
   };
 
   const openCart = () => setIsCartOpen(true);
