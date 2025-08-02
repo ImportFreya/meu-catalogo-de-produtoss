@@ -11,17 +11,28 @@ export const Sidebar = () => {
 
   return (
     <aside
-      className={`
-        bg-gray-800 text-white w-64 h-screen p-4 flex flex-col
-        fixed top-0 left-0 z-50
-        transition-transform duration-300 ease-in-out
-        ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}
-        md:translate-x-0
-      `}
-    >
-      <div className="text-2xl font-bold mb-10">
+    className={`
+    bg-gray-800 text-white w-64 h-screen p-4 flex flex-col
+    fixed top-0 z-50 
+    transition-transform duration-300 ease-in-out
+    
+    // Lógica para mobile: desliza da direita
+    ${isSidebarOpen ? 'translate-x-0' : 'translate-x-full'} right-0
+    
+    // Lógica para desktop: fica fixa na esquerda
+    md:translate-x-0 md:left-0 
+  `}
+>
+  {/* Adicionamos um cabeçalho com botão de fechar para o mobile */}
+  <div className="flex justify-between items-center mb-10 md:justify-start">
+    <h2 className="text-2xl font-bold">
       <Link href="/" onClick={isSidebarOpen ? toggleSidebar : undefined}>Connect Store</Link>
-      </div>
+    </h2>
+    {/* Botão de fechar que só aparece no mobile */}
+    <button onClick={toggleSidebar} className="p-1 rounded-full hover:bg-gray-700 md:hidden">
+      <span>X</span>
+    </button>
+  </div>
       <nav className="flex flex-col space-y-4">
           <Link href="/" onClick={isSidebarOpen ? toggleSidebar : undefined} className="flex items-center p-2 rounded-md hover:bg-gray-700 transition-colors">
           <Home className="mr-3" />
