@@ -5,6 +5,8 @@ import { ProductCard } from '../components/ProductCard/ProductCard';
 import { CategoryFilters } from '../components/CategoryFilters/CategoryFilters'; // aqui eu quis criar um componente para os filtros de categoria, pra deixar mais limpo e orgarnizado por tipo se for roupa, eletronicos, etc
 import { Product } from '@/context/CartContext';
 
+import { ProductCardSkeleton } from '../components/ProductCardSkeleton/ProductCardSkeleton';
+
 export default function HomePage() {
   const [allProducts, setAllProducts] = useState<Product[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -12,7 +14,7 @@ export default function HomePage() {
   const [error, setError] = useState<string | null>(null);
   const [categories, setCategories] = useState<string[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  
+
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -25,7 +27,7 @@ export default function HomePage() {
     };
     fetchCategories();
   }, []);
-// Busca os produtos com base na categoria selecionada ou todos os produtos se nenhuma categoria for selecionada
+  // Busca os produtos com base na categoria selecionada ou todos os produtos se nenhuma categoria for selecionada
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -67,17 +69,19 @@ export default function HomePage() {
       </div>
 
       <div className="mb-8">
-        <CategoryFilters 
+        <CategoryFilters
           categories={categories}
           selectedCategory={selectedCategory}
           onSelectCategory={setSelectedCategory}
         />
       </div>
-      
+
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        
+
         {loading ? (
-          <p className="col-span-full text-center mt-8">Carregando produtos...</p>
+          Array.from({ length: 8 }).map((_, index) => (
+            <ProductCardSkeleton key={index} />
+          ))
         ) : error ? (
           <p className="col-span-full text-center mt-8 text-red-500">{error}</p>
         ) : filteredProducts.length > 0 ? (

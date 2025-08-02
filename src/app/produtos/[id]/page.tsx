@@ -10,6 +10,7 @@ import {
   descriptionTranslations, 
   categoryTranslations 
 } from '@/lib/translations';
+import { ProductDetailSkeleton } from '@/components/ProductCardSkeleton/ProductDetailSkeleton';
 
 // eu fiz esse componente para exibir os detalhes de um produto específico, onde o usuário pode ver as informações do produto e adicionar ao carrinho
 
@@ -40,7 +41,7 @@ export default function ProductDetailPage() {
   }, [id]);
 
   if (loading) {
-    return <p className="text-center mt-12">Carregando detalhes do produto...</p>;
+   return <ProductDetailSkeleton />;;
   }
 
   if (!product) {
