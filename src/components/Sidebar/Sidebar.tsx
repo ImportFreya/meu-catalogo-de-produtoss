@@ -16,19 +16,19 @@ export const Sidebar = () => {
     fixed top-0 z-50 
     transition-transform duration-300 ease-in-out
     
-    // Lógica para mobile: desliza da direita
+   
     ${isSidebarOpen ? 'translate-x-0' : 'translate-x-full'} right-0
     
-    // Lógica para desktop: fica fixa na esquerda
+    
     md:translate-x-0 md:left-0 
   `}
 >
-  {/* Adicionamos um cabeçalho com botão de fechar para o mobile */}
+  
   <div className="flex justify-between items-center mb-10 md:justify-start">
     <h2 className="text-2xl font-bold">
       <Link href="/" onClick={isSidebarOpen ? toggleSidebar : undefined}>Connect Store</Link>
     </h2>
-    {/* Botão de fechar que só aparece no mobile */}
+    
     <button onClick={toggleSidebar} className="p-1 rounded-full hover:bg-gray-700 md:hidden">
       <span>X</span>
     </button>

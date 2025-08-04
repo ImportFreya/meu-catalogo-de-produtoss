@@ -1,4 +1,4 @@
-
+// app/layout.tsx
 "use client"
 
 import { Inter } from "next/font/google";
@@ -7,42 +7,38 @@ import { CartProvider, useCart } from "@/context/CartContext";
 import { Sidebar } from "@/components/Sidebar/Sidebar";
 import { CartDrawer } from "@/components/CartDrawer/CartDrawer";
 import { Header } from "@/components/Header/Header";
-import { Toaster } from 'react-hot-toast'; 
+import { Footer } from "@/components/Footer/Footer";
+import { Toaster } from 'react-hot-toast';
 
 const inter = Inter({ subsets: ["latin"] });
 
 function AppContent({ children }: { children: React.ReactNode }) {
-  const { isCartOpen, isSidebarOpen, toggleSidebar } = useCart();
+  const { isSidebarOpen, toggleSidebar } = useCart();
 
   return (
-    <div className="relative min-h-screen bg-gray-100">
+    <div className="bg-gray-100">
+      {/* Overlay e Sidebar ficam aqui, como camadas independentes */}
       {isSidebarOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
           onClick={toggleSidebar}
         ></div>
       )}
-
-      <div className="flex">
-        <Sidebar />
-
-      
-        <div className={`
-            flex-1 
-            pl-0 md:pl-64 
-            transition-all duration-300 ease-in-out
-            ${isCartOpen ? 'pr-0 xl:pr-[28rem]' : 'pr-0'}
-          `}
-        >
-          <Header />
-          <main className="p-8">
-            {children}
-          </main>
-        </div>
-      </div>
-
+      <Sidebar />
       <CartDrawer />
-      <Toaster position="bottom-left" />
+      <Toaster position="bottom-right" />
+
+      {/* Container principal para o conteúdo da página */}
+      <div className="flex flex-col min-h-screen md:pl-64">
+        <Header />
+        
+        {/* O 'main' agora cresce para ocupar o espaço, empurrando o footer para baixo */}
+        <main className="flex-grow p-4 sm:p-6 md:p-8">
+          {children}
+        </main>
+        
+        <Footer />
+      </div>
     </div>
   );
 }
