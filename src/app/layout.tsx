@@ -26,7 +26,7 @@ function AppContent({ children }: { children: React.ReactNode }) {
       )}
       <Sidebar />
       <CartDrawer />
-      <Toaster position="bottom-right" />
+      <Toaster position="bottom-left" />
 
       {/* Container principal para o conteúdo da página */}
       <div className="flex flex-col min-h-screen md:pl-64">
